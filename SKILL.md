@@ -5,7 +5,17 @@ description: Ghi, sửa và kiểm tra sổ chi tiêu cá nhân trong package fi
 
 # Finance agent
 
-Đọc config.json để chọn nguồn, references/workbook-map.md để biết ô được phép ghi và references/operations.md để phân loại yêu cầu. Nếu chưa chọn nguồn, không ghi vào cả hai bản. Các đường dẫn tương đối tính từ folder này. Skill không tự cấp quyền truy cập, không có backend hoặc tool server.
+Đọc config.json để chọn nguồn, references/workbook-map.md để biết ô được phép ghi và references/operations.md để phân loại yêu cầu. Nếu chưa chọn nguồn, không ghi vào cả hai bản. Các đường dẫn tương đối tính từ folder này. Skill không tự cấp quyền truy cập.
+
+## Kênh ghi
+
+Chọn theo thứ tự, mỗi phiên kiểm tra lại:
+
+1. **API Apps Script**: khi có `EXPENSE_BOOK_URL` và `EXPENSE_BOOK_TOKEN` trong môi trường. Gọi `scripts/ledger.sh ping`, rồi `get_context` để lấy ngày hôm nay, ví, danh mục, kỳ thẻ live. Ghi bằng các action trong [references/api.md](references/api.md); API tự chống trùng theo `request_id`, chỉ ghi cột input, đọc lại hàng. Dùng được từ cloud session và điện thoại.
+2. **Công cụ ghi range của Google Sheets** nếu phiên có.
+3. **Điều khiển trình duyệt** trên tab Sheets đã đăng nhập: chậm, dễ lỗi gõ (mất ký tự có dấu đầu ô); đọc lại từng ô.
+
+Connector Google Drive chỉ đọc; không coi là có quyền ghi. Không in token ra hội thoại hoặc lưu vào file của package.
 
 ## Tự setup khi bắt đầu
 
