@@ -328,7 +328,8 @@ function ping_() {
     try { problems = problems.concat(checkHeaders_(k)); } catch (e) { problems.push(e.message); }
   });
   var tz = tz_();
-  if (tz !== 'Asia/Ho_Chi_Minh') problems.push('Múi giờ sổ là ' + tz + ', cần Asia/Ho_Chi_Minh');
+  // Sheets saves the +07:00 "Hà Nội" choice under the legacy IANA alias Asia/Saigon.
+  if (['Asia/Ho_Chi_Minh', 'Asia/Saigon'].indexOf(tz) === -1) problems.push('Múi giờ sổ là ' + tz + ', cần Asia/Ho_Chi_Minh');
   return { status: problems.length ? 'schema_mismatch' : 'ok', spreadsheet: ss_().getName(),
     timezone: tz, schema: 'investment_dashboard_v2', api_version: API_VERSION, problems: problems };
 }
