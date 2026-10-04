@@ -22,3 +22,12 @@ Với Google Sheets, agent cần có công cụ Google Sheets được kết n�
 Trước khi sửa XLSX, agent tạo bản sao trong backups, sửa bản tạm rồi kiểm tra trước khi thay file chính. Chỉ một agent/người ghi sổ tại một thời điểm. Chống ghi trùng bằng mã nguồn hỗ trợ retry, không đảm bảo giao dịch đồng thời như database.
 
 Sổ có vùng nhập hữu hạn: 1.000 giao dịch, 200 chuyển tiền, 36 tháng kỳ thẻ, 2 tài sản với 12 tháng định giá. Agent phải mở rộng công thức, bảng và validation có kiểm tra khi hết vùng; không ghi lấn. Hai tab 10-26 và 11-26 là trang xem tháng; nhật ký lưu liên tục.
+
+## Ghi từ điện thoại / cloud (API Apps Script)
+
+Folder `apps-script/` là web app gắn vào sổ Google Sheets, cho phép agent ghi sổ qua HTTPS mà không cần trình duyệt hay máy Mac đang bật. Deploy một lần theo [references/api.md](references/api.md#deploy), rồi đặt hai biến môi trường ở nơi agent chạy (máy local, cloud environment của Claude Code):
+
+- `EXPENSE_BOOK_URL`: URL `/exec` của web app.
+- `EXPENSE_BOOK_TOKEN`: token lấy từ log của `setup()`.
+
+Không commit hai giá trị này. Cloud environment cần cho phép truy cập mạng tới `script.google.com` và `script.googleusercontent.com`. Test helper thuần: `node --test tests/*.test.mjs`.
