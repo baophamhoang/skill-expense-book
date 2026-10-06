@@ -1,7 +1,7 @@
 // One-off structural changes to the workbook. Run from the Apps Script editor, never via the API.
 // Google Sheets version history (File > Version history) is the backup: name a version before running.
 
-var LOAN_WALLET = { name: 'Vay Agribank', openingK: -372240, row: 15 };
+var LOAN_WALLET = { name: 'Vay Agribank', openingK: -372250, row: 15 };
 var LOAN_CATEGORY = { name: 'Lãi vay', row: 19 };
 
 // Formula text rewrites that grow the wallet list from 6 rows (A9:B14) to 7 (A9:B15)
