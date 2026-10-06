@@ -27,12 +27,14 @@ Tất cả số tiền là k VND. Đọc header và công thức live để phá
 | Chuyển tiền, hàng 12:211 | A ngày, B ví nguồn, C ví đích, D tiền k, E ghi chú, F mã kỳ nếu trả thẻ, H mã nguồn/ID | G kiểm tra, I tháng/năm |
 | Thẻ tín dụng, hàng 12:83 | F dư sao kê đã xác nhận; L hạn trả thực tế tùy chọn | A mã kỳ, B thẻ, C ngày chốt, D hạn trả, E dư dự kiến, G cần trả, H đã trả, I còn lại, J trạng thái, K tháng/năm |
 | Đầu tư, hàng 10:33 | F giá k/đơn vị, G ngày giá của đúng tài sản và tháng | A:E, H:L |
-| Cài đặt | B5 ngày bắt đầu; B9:B14 số dư đầu kỳ; K8:K9 ngày chốt; L8:L9 số ngày đến hạn; J22:N23 mã/tên/đơn vị/số lượng/vốn đầu kỳ; C25:D224 ngân sách/ghi chú | Đọc các nhãn tương ứng; không thay tháng/danh mục ngân sách khi chỉ cập nhật số tiền |
+| Cài đặt | B5 ngày bắt đầu; B9:B14 số dư đầu kỳ (B15 nếu có ví vay); K8:K9 ngày chốt; L8:L9 số ngày đến hạn; J22:N23 mã/tên/đơn vị/số lượng/vốn đầu kỳ; C25:D224 ngân sách/ghi chú | Đọc các nhãn tương ứng; không thay tháng/danh mục ngân sách khi chỉ cập nhật số tiền |
 
 Ví ban đầu theo A9:A14: Tiền mặt, VCB 1, VCB 2, Tech, Thẻ VIB, Thẻ Tech. Đọc lại danh sách khi dùng; không tự thêm ví vì công thức và dropdown có thể cần mở rộng.
 
+Khoản vay: `addLoanWallet()` trong apps-script/Migrations.js (chạy một lần từ editor) thêm ví thứ 7 "Vay Agribank" ở Cài đặt A15:B15 (số dư đầu âm = dư nợ gốc tại ngày bắt đầu), dòng Dashboard H40:I40, dòng F31:G31 ở mỗi tab tháng và danh mục chi "Lãi vay" ở D19; các công thức đếm 6 ví thành 7. Ví vay không tính vào Nợ thẻ (Dashboard H10). Sau khi chạy, ví đọc ở A9:A15.
+
 Loại: Chi tiêu, Thu nhập, Đầu tư, Hoàn tiền, Rút đầu tư.
-Danh mục chi: Ăn uống, Quà tặng, Sức khỏe, Nhà cửa, Đi lại, Cá nhân, Thú cưng, Điện / nước, Khác, Phí / lãi thẻ.
+Danh mục chi: Ăn uống, Quà tặng, Sức khỏe, Nhà cửa, Đi lại, Cá nhân, Thú cưng, Điện / nước, Khác, Phí / lãi thẻ, Lãi vay (sau `addLoanWallet()`).
 Thu: Lương, Thưởng, Thu khác. Đầu tư: Vàng, Chứng khoán.
 
 Dashboard B5 là năm báo cáo, I5 là ngày tính báo cáo. Khi trả thẻ đọc cả ngày này: khoản trả sau ngày báo cáo chưa được tính là đã trả. Đừng sửa số nợ để bù cho chênh lệch ngày báo cáo.
