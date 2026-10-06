@@ -52,7 +52,7 @@ var LAYOUT = {
   },
   settings: {
     sheet: 'Cài đặt',
-    startDate: 'B5', wallets: 'A9:B14', categories: 'D9:D30', types: 'H9:H13', cards: 'J8:M9', assets: 'J22:N23'
+    startDate: 'B5', wallets: 'A9:B15', categories: 'D9:D30', types: 'H9:H13', cards: 'J8:M9', assets: 'J22:N23'
   }
 };
 

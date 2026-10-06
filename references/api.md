@@ -55,4 +55,6 @@ clasp create-deployment -d "v1"          # in ra DEPLOYMENT_ID; URL = https://sc
 # Các lần sau: clasp push && clasp create-deployment -i <DEPLOYMENT_ID> -d "..." (giữ nguyên URL)
 ```
 
+Thay đổi cấu trúc sổ (ví dụ `addLoanWallet()` trong `Migrations.js`) không đi qua API: `clasp push`, đặt tên một phiên bản trong Lịch sử phiên bản của Sheets để có bản lưu, rồi chạy hàm đó một lần trong editor và đọc log.
+
 `.clasp.json` chứa scriptId của sổ riêng nên đã gitignore; máy khác chạy `clasp clone-script <scriptId> --rootDir apps-script`.
