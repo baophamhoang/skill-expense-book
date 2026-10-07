@@ -34,7 +34,7 @@ Ví ban đầu theo A9:A14: Tiền mặt, VCB 1, VCB 2, Tech, Thẻ VIB, Thẻ T
 Khoản vay: `addLoanWallet()` trong apps-script/Migrations.js (chạy một lần từ editor) thêm ví thứ 7 "Vay Agribank" ở Cài đặt A15:B15 (số dư đầu âm = dư nợ gốc tại ngày bắt đầu), dòng Dashboard H40:I40, dòng F31:G31 ở mỗi tab tháng và danh mục chi "Lãi vay" ở D19; các công thức đếm 6 ví thành 7. Ví vay không tính vào Nợ thẻ (Dashboard H10). Sau khi chạy, ví đọc ở A9:A15.
 
 Loại: Chi tiêu, Thu nhập, Đầu tư, Hoàn tiền, Rút đầu tư.
-Danh mục chi: Ăn uống, Quà tặng, Sức khỏe, Nhà cửa, Đi lại, Cá nhân, Thú cưng, Điện / nước, Khác, Phí / lãi thẻ, Lãi vay (sau `addLoanWallet()`).
+Danh mục chi: Ăn uống, Quà tặng, Sức khỏe, Nhà cửa, Đi lại, Cá nhân, Thú cưng, Điện / nước, Khác, Phí / lãi thẻ, Lãi vay (sau `addLoanWallet()`), Subscription (sau `addSubscriptionCategory()`, D20). Danh mục mới thêm bằng `addSpendingCategory_()` không có dòng trong bảng ngân sách A18:A27 của tab tháng.
 Thu: Lương, Thưởng, Thu khác. Đầu tư: Vàng, Chứng khoán.
 
 Dashboard B5 là năm báo cáo, I5 là ngày tính báo cáo. Khi trả thẻ đọc cả ngày này: khoản trả sau ngày báo cáo chưa được tính là đã trả. Đừng sửa số nợ để bù cho chênh lệch ngày báo cáo.

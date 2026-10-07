@@ -100,3 +100,29 @@ function addLoanWallet() {
   Logger.log('Dashboard ' + LOAN_WALLET.name + ': ' + dash.getRange('I40').getDisplayValue() +
     ' | Tài sản ròng: ' + dash.getRange('I42').getDisplayValue() + ' | Dòng cần bổ sung: ' + dash.getRange('K5').getDisplayValue());
 }
+
+// Appends a spending category after the last one in Cài đặt D9:D30, widens the category check in
+// Ghi chép (D9:D<last>) and adds it to the Ghi chép dropdown. The month-tab budget tables
+// (A18:A27) are left as they are.
+function addSpendingCategory_(name) {
+  var settings = sheet_(LAYOUT.settings.sheet), entries = sheet_(LAYOUT.entries.sheet);
+  var col = settings.getRange('D9:D30').getValues().map(function (r) { return String(r[0]).trim(); });
+  if (col.indexOf(name) !== -1) { Logger.log('Danh mục ' + name + ' đã có'); return; }
+  var used = col.indexOf('');
+  if (used <= 0 || col.slice(used).some(function (s) { return s; })) throw new Error('Danh mục ở D9:D30 không liền nhau; dừng');
+  var lastRow = 8 + used, newRow = lastRow + 1;
+
+  withLock_(function () {
+    var rewrites = [["'Cài đặt'!$D$9:$D$" + lastRow + ',', "'Cài đặt'!$D$9:$D$" + newRow + ',']];
+    var changed = rewriteFormulas_(entries, rewrites);
+    if (!changed) throw new Error("Không thấy công thức dùng 'Cài đặt'!$D$9:$D$" + lastRow + '; dừng');
+    settings.getRange('D' + newRow).setValue(name);
+    addToListValidation_(entries.getRange('D12:D1011'), name);
+    Logger.log('Thêm danh mục ' + name + ' ở Cài đặt!D' + newRow + '; sửa ' + changed + ' công thức');
+  });
+  Logger.log('Dòng cần bổ sung: ' + sheet_('Dashboard').getRange('K5').getDisplayValue());
+}
+
+function addSubscriptionCategory() {
+  addSpendingCategory_('Subscription');
+}
